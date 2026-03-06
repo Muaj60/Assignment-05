@@ -89,7 +89,7 @@ const displayIssues = (issues) => {
 
         div.innerHTML = `
 
-<div class="h-full flex flex-col justify-between mb-2">
+<div class="h-full flex flex-col justify-between mb-2 ">
    <div class="flex justify-between">
    <img class="w-8" src="./assets/Open-Status.png" alt="">
    ${priorityBadge(issue.priority)}
@@ -104,7 +104,7 @@ const displayIssues = (issues) => {
 
 </div>
 
-<div class="flex gap-2">
+<div class="flex flex-nowrap md:flex-wrap  gap-2 mt-2">
   ${createElement(issue.labels)}
 </div>
 
