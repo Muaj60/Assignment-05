@@ -1,7 +1,9 @@
+let allIssues=[];
+
 const priorityBadge = (priority) => {
   const p = priority.toUpperCase(); 
   return `
-    <span class="w-24 text-center px-3 py-1 text-sm rounded-md font-semibold
+    <span class="w-24 text-center px-3 py-2 text-sm rounded-md font-semibold
       ${
         p === "HIGH"
           ? "bg-red-100 text-red-600"
@@ -63,12 +65,16 @@ document.getElementById("login-btn").addEventListener("click", () => {
 });
 
 const loadIssue = () => {
-
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => {
+      allIssues = data.data;       
+      displayIssues(allIssues);    
+      updateCount(allIssues);       
+    });
+};
 
-      const issues = data.data;
+const displayIssues = (issues) => {
       const container = document.getElementById("issue-container");
 
       container.innerHTML = "";
@@ -113,7 +119,44 @@ const loadIssue = () => {
         container.append(div);
 
       });
+      
 
+    };
+
+
+
+const updateCount=(issues)=>{
+document.getElementById("count").innerText=`${issues.length} Issues`
+}
+
+document.querySelectorAll("#all-btn button").forEach((btn)=>{
+  btn.addEventListener('click',()=>{
+
+    const type=btn.innerText.toLowerCase();
+    if(type==='all'){
+      displayIssues(allIssues);
+      updateCount(allIssues);
+    }
+    else if(type==='open'){
+      const openIssues=allIssues.filter(issue=>issue.status.toLowerCase()==="open");
+      
+      displayIssues(openIssues)
+      updateCount(openIssues)
+    }
+    else if(type==='closed'){
+      const closedIssues=allIssues.filter(issue=>issue.status.toLowerCase()==="closed");
+      displayIssues(closedIssues)
+      updateCount(closedIssues)
+    }
+    document.querySelectorAll("#all-btn button").forEach(b=>{
+      b.classList.remove('btn-primary')
+      b.classList.add('btn-neutral')
     });
+    btn.classList.remove('btn-neutral')
+   btn.classList.add('btn-primary')
 
-};
+    })
+  });
+
+
+
