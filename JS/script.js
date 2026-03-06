@@ -81,9 +81,11 @@ const displayIssues = (issues) => {
 
       issues.forEach((issue) => {
 
+        const borderColor=issue.status.toLowerCase()==='open'?"border-t-4 border-green-400 ":"border-t-4 border-purple-400";
+
         const div = document.createElement("div");
 
-        div.className = "card bg-white shadow-sm p-5 rounded-xl bg-gray-200";
+        div.className = `card bg-white shadow-sm p-5 rounded-xl bg-gray-200 ${borderColor}`;
 
         div.innerHTML = `
 
@@ -102,7 +104,7 @@ const displayIssues = (issues) => {
 
 </div>
 
-<div class="flex gap-2 mt-2">
+<div class="flex gap-2">
   ${createElement(issue.labels)}
 </div>
 
@@ -139,7 +141,7 @@ document.querySelectorAll("#all-btn button").forEach((btn)=>{
     }
     else if(type==='open'){
       const openIssues=allIssues.filter(issue=>issue.status.toLowerCase()==="open");
-      
+
       displayIssues(openIssues)
       updateCount(openIssues)
     }
