@@ -15,6 +15,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
+    <!--Font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         * {
             font-family: "Geist", sans-serif;
@@ -24,11 +29,34 @@
 
 <body>
 
-    <header class="text-center p-4 font-bold text-xl">
-        GitHub Issues Tracker
+    <header class="bg-base-100 shadow-md px-10 py-4 mb-4 hidden">
+
+        <div class="flex items-center justify-between">
+
+
+
+            <h1 class="text-3xl font-bold">All Issues</h1>
+
+
+            <div class="flex items-center gap-4">
+
+                <label class="input input-bordered flex items-center gap-2 w-64">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="grow" placeholder="Search issues..." />
+                </label>
+
+                <button class="btn btn-primary">
+                    + New Issue
+                </button>
+
+            </div>
+
+        </div>
     </header>
 
-    <section>
+
+
+    <section id="login-section">
 
         <div class="hero bg-base-200 min-h-screen">
 
@@ -75,8 +103,52 @@
 
     </section>
 
+    <!-- Count Section-->
+    <section id="count-section" class="w-11/12 mx-auto bg-white rounded-lg p-4 flex justify-between items-center hidden">
+        <div class="flex gap-3 items-center">
+            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                <img class="w-6" src="./assets/Aperture.png" alt="">
+            </div>
+            <div>
+                <h1 id="count" class="text-lg font-bold">0 Issues</h1>
+                <p class="text-gray-500 text-sm">Track and manage your project issues</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4 items-center">
+            <!-- Open -->
+            <span class="flex items-center gap-1 text-sm text-green-700">
+                <span class="w-2.5 h-2.5 bg-green-600 rounded-full block"></span>
+                Open
+            </span>
+
+            <!-- Closed -->
+            <span class="flex items-center gap-1 text-sm text-purple-700">
+                <span class="w-2.5 h-2.5 bg-purple-600 rounded-full block"></span>
+                Closed
+            </span>
+        </div>
+    </section>
+
+
+
+    <section id="all-btn" class="w-11/12 mx-auto bg-[#FFFFFF] hidden">
+        <div class="p-5 mb-3 flex gap-5 ">
+            <button class="btn btn-natural p-2 rounded-sm w-20 h-8  ">All</button>
+            <button class="btn btn-natural p-2 rounded-sm w-20 h-8  ">Open</button>
+            <button class="btn btn-natural p-2 rounded-sm w-20 h-8 ">Closed</button>
+        </div>
+    </section>
+
+    <section id="issue-section" class="hidden w-11/12 mx-auto">
+        <div id="issue-container" class="grid grid-cols-4 gap-5">
+
+        </div>
+    </section>
+
     <script src="./JS/script.js"></script>
 
 </body>
 
 </html>
+
