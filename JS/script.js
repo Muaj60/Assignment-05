@@ -3,7 +3,7 @@ let allIssues=[];
 const priorityBadge = (priority) => {
   const p = priority.toUpperCase(); 
   return `
-    <span class="w-24 text-center px-3 py-2 text-sm rounded-md font-semibold
+    <span class="w-20 text-center px-3 py-2 text-sm rounded-md font-semibold
       ${
         p === "HIGH"
           ? "bg-red-100 text-red-600"
@@ -74,6 +74,15 @@ const loadIssue = () => {
     });
 };
 
+
+const getIssueDetails=(id)=>{
+fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+.then((res)=>res.json())
+.then((data)=>{
+  showIssueModal(data.data)
+})
+}
+
 const displayIssues = (issues) => {
       const container = document.getElementById("issue-container");
 
@@ -84,6 +93,8 @@ const displayIssues = (issues) => {
         const borderColor=issue.status.toLowerCase()==='open'?"border-t-4 border-green-400 ":"border-t-4 border-purple-400";
 
         const div = document.createElement("div");
+
+       div.onclick=()=>getIssueDetails(issue.id);
 
         div.className = `card bg-white shadow-sm p-5 rounded-xl bg-gray-200 ${borderColor}`;
 
@@ -124,6 +135,54 @@ const displayIssues = (issues) => {
       
 
     };
+
+
+
+const showIssueModal = (issue) => {
+  const container = document.getElementById("details-container")
+
+  container.innerHTML = `
+     <h2 class="text-xl font-bold">${issue.title}</h2>
+
+     <div class="flex items-center gap-2 text-sm">
+        <span class="badge badge-success">${issue.status}</span>
+        <span>Opened by ${issue.author}</span>
+     </div>
+
+    
+     <div class="flex flex-nowrap md:flex-wrap gap-2 mt-2">
+        ${createElement(issue.labels)}
+     </div>
+
+     
+     <p class="text-sm text-gray-500 mt-2">
+        ${issue.description}
+     </p>
+
+     
+     <div class="flex justify-center  p-4 rounded-md bg-gray-200 w-full mt-4">
+
+  <div class="w-1/2 flex flex-col space-y-2 ">
+    <p class="text-gray-400">Assignee:</p>
+    <p class="font-semibold">
+      ${issue.assignee ? issue.assignee : "Not Assigned"}
+    </p>
+  </div>
+
+  <div class="text-right flex flex-col items-center w-20">
+    <p class="text-gray-400 mb-1">Priority:</p>
+      ${priorityBadge(issue.priority)}
+  </div>
+
+</div>
+  
+  `;
+
+document.getElementById("word_modal").showModal();
+    
+   
+}
+
 
 
 
