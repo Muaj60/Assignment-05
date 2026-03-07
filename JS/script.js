@@ -62,6 +62,24 @@ document.getElementById("login-btn").addEventListener("click", () => {
   }
 });
 
+const searchIssue=()=>{
+  const query=document.getElementById("search-input").value;
+  manageSpinner(true);
+  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${query}`)
+.then((res) => res.json())
+.then((data)=>{
+   allIssues = data.data;
+      displayIssues(allIssues);
+      updateCount(allIssues);
+      manageSpinner(false);
+
+})
+  }
+  
+
+ document.getElementById("search-btn").addEventListener('click',()=>{
+  searchIssue();
+ })
 
 const loadIssue = () => {
   manageSpinner(true);
